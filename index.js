@@ -87,6 +87,12 @@ const checkWin = (currentPlayer) => {
   });
 };
 
+const checkDraw = () => {
+  return [...celelementos].every((cel) => {
+    return cel.classList.contains("x") || cel.classList.contains("circle");
+  });
+};
+
 // MARCAR CÉLULA
 
 const Marcador = (cel, classToAdd) => {
@@ -133,16 +139,16 @@ const handleClick = (e) => {
   // VERIFICAR VITÓRIA
 
   const isWin = checkWin(classToAdd);
-
+  // VERIFICAR POR EMPATE
+  const isDraw = checkDraw();
   if (isWin) {
     endGame(false);
-
-    return;
+  } else if (isDraw) {
+    endGame(true);
+  } else {
+    // TROCAR JOGADOR
+    trocarSimbolo();
   }
-
-  // TROCAR JOGADOR
-
-  trocarSimbolo();
 };
 
 // INICIAR O JOGO
